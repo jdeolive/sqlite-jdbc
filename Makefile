@@ -61,12 +61,12 @@ clean:
 
 
 
-$(SQLITE_DLL): $(SQLITE_BUILD_DIR)/sqlite3.o $(BUILD)/org/sqlite/NativeDB.class src/main/java/org/sqlite/NativeDB.c
+$(SQLITE_DLL): $(SQLITE_BUILD_DIR)/sqlite3.o $(BUILD)/org/spatialite/NativeDB.class src/main/java/org/spatialite/NativeDB.c
 	@mkdir -p $(dir $@)
 	$(JAVAH) -classpath $(BUILD) -jni \
-		-o $(BUILD)/NativeDB.h org.sqlite.NativeDB
+		-o $(BUILD)/NativeDB.h org.spatialite.NativeDB
 	$(CC) $(CFLAGS) -c -o $(BUILD)/$(target)/NativeDB.o \
-		src/main/java/org/sqlite/NativeDB.c
+		src/main/java/org/spatialite/NativeDB.c
 	$(CC) $(CFLAGS) $(LINKFLAGS) -o $@ \
 		$(BUILD)/$(target)/NativeDB.o $(SQLITE_BUILD_DIR)/*.o \
 		$(POST_LINKFLAGS)
@@ -104,7 +104,7 @@ endif
 	    $(SQLITE_FLAGS) \
 	    sqlite3.c)
 
-$(BUILD)/org/sqlite/%.class: src/main/java/org/sqlite/%.java
+$(BUILD)/org/spatialite/%.class: src/main/java/org/spatialite/%.java
 	@mkdir -p $(BUILD)
 	$(JAVAC) -source 1.5 -target 1.5 -sourcepath src/main/java -d $(BUILD) $<
 

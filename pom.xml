@@ -2,10 +2,10 @@
 
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.xerial</groupId>
-  <artifactId>sqlite-jdbc</artifactId>
-  <version>3.7.2</version>
-  <name>SQLite JDBC</name>
-  <description>SQLite JDBC library</description>
+  <artifactId>spatialite-jdbc</artifactId>
+  <version>2.4-3.7.2</version>
+  <name>SpatiaLite JDBC</name>
+  <description>SpatiaLite JDBC library</description>
 
   <parent>
     <groupId>org.xerial</groupId>
@@ -110,28 +110,4 @@
     </dependency>
   </dependencies>
 
-  <profiles>
-    <profile>
-      <id>spatialite</id>
-      <build>
-       <plugins>
-        <plugin>
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <configuration>
-            <finalName>${project.artifactId}-spatialite-${project.version}-2.4</finalName>
-          </configuration>
-          <executions>
-            <execution>
-              <phase>package</phase>
-              <goals>
-                 <goal>jar</goal>
-              </goals>
-            </execution>
-          </executions>
-        </plugin>
-      </plugins>
-     </build>
-    </profile>
-  </profiles>
 </project>
