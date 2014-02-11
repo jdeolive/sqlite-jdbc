@@ -117,7 +117,7 @@ public class SQLiteJDBCLoader
     private static boolean extractAndLoadLibraryFile(String libFolderForCurrentOS, String libraryFileName,
             String targetFolder) {
         String nativeLibraryFilePath = libFolderForCurrentOS + "/" + libraryFileName;
-        final String prefix = "spatialite-" + getVersion() + "-";
+        final String prefix = "spatialite-" + getFullVersion() + "-";
 
         String extractedLibFileName = prefix + libraryFileName;
         File extractedLibFile = new File(targetFolder, extractedLibFileName);
@@ -248,24 +248,46 @@ public class SQLiteJDBCLoader
     }
 
     public static String getVersion() {
+        String version = "unknown";
+        Properties versionData = loadVersionData();
+        if (versionData != null) {
+            version = versionData.getProperty("version", version);
+            version = version.trim().replaceAll("[^0-9\\.]", "");
+        }
+        return version;
+    }
 
+    public static String getFullVersion() {
+        String version = "unknown";
+        Properties versionData = loadVersionData();
+        if (versionData != null) {
+            version = versionData.getProperty("version", version);
+            version = version.trim().replaceAll("[^0-9\\.]", "");
+
+            String spatialiteVersion = versionData.getProperty("version");
+            if (spatialiteVersion != null) {
+                version += "-" + spatialiteVersion.trim().replaceAll("[^0-9\\.]", "");
+            }
+        }
+        return version;
+    }
+
+    static Properties loadVersionData() {
         URL versionFile = SQLiteJDBCLoader.class.getResource("/META-INF/maven/org.xerial/spatialite-jdbc/pom.properties");
         if (versionFile == null)
             versionFile = SQLiteJDBCLoader.class.getResource("/META-INF/maven/org.xerial/spatialite-jdbc/VERSION");
 
-        String version = "unknown";
         try {
             if (versionFile != null) {
                 Properties versionData = new Properties();
                 versionData.load(versionFile.openStream());
-                version = versionData.getProperty("version", version);
-                version = version.trim().replaceAll("[^0-9\\.]", "");
+                return versionData;
             }
         }
         catch (IOException e) {
             System.err.println(e);
         }
-        return version;
-    }
 
+        return null;
+    }
 }
