@@ -264,7 +264,7 @@ public class SQLiteJDBCLoader
             version = versionData.getProperty("version", version);
             version = version.trim().replaceAll("[^0-9\\.]", "");
 
-            String spatialiteVersion = versionData.getProperty("version");
+            String spatialiteVersion = versionData.getProperty("spatialite_version");
             if (spatialiteVersion != null) {
                 version += "-" + spatialiteVersion.trim().replaceAll("[^0-9\\.]", "");
             }
