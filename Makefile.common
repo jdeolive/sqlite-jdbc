@@ -97,7 +97,7 @@ Windows-x86_STRIP        := strip
 Windows-x86_CFLAGS       := -D_JNI_IMPLEMENTATION_ -Ilib/inc_win  -I$(GEOS)/include -I$(PROJ)/include  
 Windows-x86_LINKFLAGS    := -Wl,--kill-at -shared -L$(GEOS)/lib -L$(PROJ)/lib
 Windows-x86_POST_LINKFLAGS    := -liconv -lproj -lgeos_c
-Windows-x86_LIBNAME      := sqlitejdbc.dll
+Windows-x86_LIBNAME      := spatialitejdbc.dll
 Windows-x86_SQLITE_FLAGS := 
 
 Windows-amd64_CC           := x86_64-w64-mingw32-gcc 
